@@ -74,8 +74,8 @@ def id_conv(id_des, order=1):
         pass
     else:
         e_obj = id_search(id_des[0].id, 0, None)
-        e_vec = id_search(id_des[1].id, -1)
-    return [e_obj[0], e_vec[e_obj[1]%2], e_obj[1]]
+        e_vec = id_search(id_des[1].id, -1, None)
+    return [e_obj[0], e_vec[0][e_obj[1]%2], e_obj[1], e_vec[1]]
 
 
 def prop_judge(prop, *pos_t):
@@ -153,10 +153,11 @@ def search(name, p=op):
             x = search(name, i)
             if x is not None:
                 return x
-    if p == op:
-        return doc.SearchObjectInc(name)
-    else:
-        return None
+    return None
+    #if p == op:
+    #    return doc.SearchObjectInc(name)
+    #else:
+    #    return None
 
 
 def rig_judge(data, name, ver):
@@ -196,19 +197,23 @@ def obj_record(base):
             obj_n = base[i].get('name', None)
             if type(obj_n) is list or obj_n is None:
                 continue
+            obj_p = base[i].get('parent', op)
+            if obj_p != op:
+                obj_p = search(obj_p)
             pos_ran = base[i].get('range', None)
             pos_val = base[i].get('value', None)
         else:
             obj_n = base[i]
+            obj_p = op
             pos_ran = None
             pos_val = None
-        obj = search(obj_n)
+        obj = search(obj_n, obj_p)
         if obj is None:
             continue
         lis_tmp = None
         for track in obj.GetCTracks():
             id_type = id_conv(track.GetDescriptionID())
-            obj_pos = prop_judge(base[i], id_type[2], id_type[1])
+            obj_pos = prop_judge(base[i], id_type[-2], id_type[-1])
             if obj_pos == -2:
                 continue
             if obj_pos == -1:
