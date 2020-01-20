@@ -1,14 +1,15 @@
 # -*- coding: UTF-8 -*-
-# Testing: Cinema 4D R19.068
+# Debugging: Cinema 4D R19.068
 
 
 import c4d
 import json
 import re
+import os
 
 
-fn = 'D:\\C4D\\Python\\example\\prop.json'
-output_fn = 'D:\\C4D\\Python\\example\\output_test.json'
+# fn = 'D:\\C4D\\Python\\resources\\prop.json'
+# output_fn = 'D:\\C4D\\Python\\resources\\output_test.json'
 
 
 def create_id_list():
@@ -253,29 +254,32 @@ def printv(vec):
 
 
 def main():
-    global fn, output_fn
+    # global fn, output_fn
+    c4d.gui.MessageDialog('本脚本仅支持记录Varcade人模', c4d.GEMB_OK)
     if op is None:
-        c4d.gui.MessageDialog('Please select a rig!', c4d.GEMB_ICONEXCLAMATION)
+        c4d.gui.MessageDialog('请选择一个人模', c4d.GEMB_ICONEXCLAMATION)
         return -1
     if op.GetType() == 5101 and op.GetTag(1026275) is not None:
         x = op.GetName()
         # obj = doc.SearchObjectInc(x)
         
-        #fn = c4d.storage.LoadDialog(type=c4d.FILESELECTTYPE_SCENES)
+        fn = c4d.storage.LoadDialog(title='选择prop.json', def_path=os.getcwd()+'/resources')
         with open(fn.decode('utf-8'), 'r') as f:
             prop = re.sub(r'/\*.*\*/', '', re.sub(r'//.*', '', f.read()), flags=re.S)
         try:
             prop = json.loads(prop)
         except:
-            c4d.gui.MessageDialog('Not a JSON file!', c4d.GEMB_ICONSTOP)
+            c4d.gui.MessageDialog('JSON文件无效\n请重新执行脚本', c4d.GEMB_ICONSTOP)
             return 1
         create_id_list()
         rig_name = 'varcade'
         rig_ver = 1.7
+        output_fn = c4d.storage.SaveDialog(title='选择数据保存路径', force_suffix='json', def_path=os.getcwd())
         for data in prop['rigs']:
             if rig_judge(data, rig_name, rig_ver):
                 with open(output_fn.decode('utf-8'), 'w') as out_f:
                     out_f.write(rig_record(data))
+        c4d.gui.MessageDialog('记录完毕', c4d.GEMB_OK)
         #vec = obj.GetRelPos()
         #ang = obj.GetRelRot()
         # print(x)
@@ -283,7 +287,7 @@ def main():
         # printv(ang)
         # c4d.gui.MessageDialog(x)
     else:
-        c4d.gui.MessageDialog('Please select the base of the rig!', c4d.GEMB_ICONEXCLAMATION)
+        c4d.gui.MessageDialog('请选择人模整体', c4d.GEMB_ICONEXCLAMATION)
         return -1
 
 
