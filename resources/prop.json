@@ -77,19 +77,41 @@
           "range": [-6.25, 6.25],
           "value": [-1.0, 0.0]
         },
-        "eyebrow_l": {
-          
+        "eyebrow_loc_l": {
+          "name": "左眉毛升降控制器",
+          "pos": [0, 1],
+          "description": "I'm too lazy to complete the properties."
+        },
+        "eyebrow_rot_l": {
+          "name": "左皱眉",
+          "pos": [0, 1]
+        },
+        "eyebrow_sc_l": {
+          "name": "左眉毛粗细控制器",
+          "pos": [0, 1]
+        },
+        "eyebrow_loc_r": {
+          "name": "右眉毛升降控制器",
+          "pos": [0, 1]
+        },
+        "eyebrow_rot_r": {
+          "name": "右皱眉",
+          "pos": [0, 1]
+        },
+        "eyebrow_sc_r": {
+          "name": "右眉毛粗细控制器",
+          "pos": [0, 1]
         },
 
         "wrist_l": "wrist_l",
         "wrist_r": "wrist_r",
         "ankle_l": {
           "name": "feet_twist",
-          "parent": ""
+          "parent": "leg_l"
         },
         "ankle_r": {
           "name": "feet_twist",
-          "parent": ""
+          "parent": "leg_r"
         },
 
         "arm_ik_l": {
@@ -113,18 +135,26 @@
     {
       "name": "varcade",
       "version": 1.0,
-      "target": 1
+      "target": 1,
+      "description": {
+        "extra": [
+          "Well, that's my another plan.",
+          "Just one copy."
+        ],
+        "target": "0 - C4D; 1 - Blender."
+      }
     },
     {
       "name": "varb",
       "version": 1.1,
-      "target": 1
+      "target": 1,
+      "description": "My old rig for tests."
     }
   ],
   "special": [
     {
       "name": "stretch",
-      "target_name": "head",
+      "redirect": "head",
       "pos": [2, [0, 1, 2]],
       "range": [0.5, 1.5],
       "value": [
