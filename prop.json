@@ -1,0 +1,160 @@
+{
+  "data_version": 0.1,
+  "user_version": 0.1,
+  "rigs": [
+    {
+      "id": "varcade",
+      "version": 1.94,
+      "model_type": "c4d",
+      "object": [
+        {
+          "id": "head",
+          "name": "头"
+        },
+        {
+          "id": "body",
+          "name": "腰部-控制器"
+        },
+        {
+          "id": "waist",
+          "name": "控制-背部"
+        },
+        {
+          "id": "hip",
+          "name": "腰部-控制器"
+        },
+        {
+          "id": "arm_l",
+          "name": "armCr_l",
+          "readable": false
+        },
+        {
+          "id": "arm_r",
+          "name": "armCr_R",
+          "readable": false
+        },
+        {
+          "id": "elbow_l",
+          "readable": false
+        },
+        {
+          "id": "elbow_r",
+          "readable": false
+        },
+        {
+          "id": "leg_l",
+          "readable": false
+        },
+        {
+          "id": "leg_r",
+          "readable": false
+        },
+        {
+          "id": "knee_l",
+          "readable": false
+        },
+        {
+          "id": "knee_r",
+          "readable": false
+        },
+        {
+          "id": "arm_ik_l",
+          "name": "HandCr_l"
+        },
+        {
+          "id": "arm_ik_r",
+          "name": "HandCr_R"
+        },
+        {
+          "id": "leg_ik_l",
+          "name": "左腿控制器"
+        },
+        {
+          "id": "leg_ik_r",
+          "name": "右腿控制器"
+        }
+      ]
+    },
+    {
+      "id": "varcade-bl",
+      "version": 1.34,
+      "model_type": "blender",
+      "object": [
+        {
+          "id": "head",
+          "name": "Head",
+          "transform": [1, 0, 0, 0, 0, 1, 0, -1, 0]
+        },
+        {
+          "id": "body",
+          "name": "Body",
+          "transform": [1, 0, 0, 0, 0, 1, 0, -1, 0]
+        },
+        {
+          "id": "waist",
+          "name": "Back",
+          "transform": [1, 0, 0, 0, 0, 1, 0, -1, 0]
+        },
+        {
+          "id": "hip",
+          "name": "Hip",
+          "transform": [1, 0, 0, 0, 0, 1, 0, -1, 0]
+        },
+        {
+          "id": "arm_l",
+          "name": "Arm_Up_L",
+          "readable": false
+        },
+        {
+          "id": "arm_r",
+          "name": "Arm_Up_R",
+          "readable": false
+        },
+        {
+          "id": "elbow_l",
+          "readable": false
+        },
+        {
+          "id": "elbow_r",
+          "readable": false
+        },
+        {
+          "id": "leg_l",
+          "readable": false
+        },
+        {
+          "id": "leg_r",
+          "readable": false
+        },
+        {
+          "id": "knee_l",
+          "readable": false
+        },
+        {
+          "id": "knee_r",
+          "readable": false
+        },
+        {
+          "id": "arm_ik_l",
+          "name": "Arm_IK_L",
+          "transform": [1, 0, 0, 0, 0, -1, 0, 1, 0]
+        },
+        {
+          "id": "arm_ik_r",
+          "name": "Arm_IK_R",
+          "transform": [1, 0, 0, 0, 0, -1, 0, 1, 0]
+        },
+        {
+          "id": "leg_ik_l",
+          "name": "Leg_IK_L",
+          "transform": [1, 0, 0, 0, 0, -1, 0, 1, 0]
+        },
+        {
+          "id": "leg_ik_r",
+          "name": "Leg_IK_R",
+          "transform": [1, 0, 0, 0, 0, -1, 0, 1, 0]
+        }
+      ]
+    }
+  ]
+}

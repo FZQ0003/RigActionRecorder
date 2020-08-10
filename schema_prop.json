@@ -1,0 +1,158 @@
+{
+  "title": "RigActionRecorder - 对应关系数据结构",
+  "definitions": {
+    "version": {
+      "type": "number",
+      "default": 1.0,
+      "exclusiveMinimum": 0
+    }
+  },
+  "type": "object",
+  "required": [
+    "data_version",
+    "rigs"
+  ],
+  "properties": {
+    "data_version": {
+      "description": "系统版本，固定值",
+      "type": "number",
+      "const": 0.1
+    },
+    "user_version": {
+      "description": "用户数据结构版本",
+      "$ref": "#/definitions/version"
+    },
+    "rigs": {
+      "description": "所有人模列表",
+      "type": "array",
+      "required": [
+        "id",
+        "version",
+        "model_type",
+        "object"
+      ],
+      "items": {
+        "description": "单个人模详细数据",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "人模标识符，不可重复使用",
+            "type": "string"
+          },
+          "version": {
+            "description": "人模版本",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/version"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/version"
+                },
+                "minItems": 1
+              }
+            ]
+          },
+          "model_type": {
+            "description": "该人模适配软件",
+            "type": "string",
+            "enum": [
+              "c4d",
+              "blender"
+            ]
+          },
+          "object": {
+            "description": "人模控制器列表",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "description": "标识符，请尽量保持统一",
+                  "type": "string",
+                  "anyOf": [
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "enum": [
+                        "head",
+                        "body",
+                        "waist",
+                        "hip",
+                        "arm_l",
+                        "arm_r",
+                        "elbow_l",
+                        "elbow_r",
+                        "leg_l",
+                        "leg_r",
+                        "knee_l",
+                        "knee_r",
+                        "arm_ik_l",
+                        "arm_ik_r",
+                        "leg_ik_l",
+                        "leg_ik_r"
+                      ]
+                    }
+                  ]
+                },
+                "name": {
+                  "description": "在对应软件中的名称"
+                },
+                "transform": {
+                  "description": "在此输入3*3（按列分块）矩阵的所有元素作为变换，注意顺序",
+                  "type": "array",
+                  "items": {
+                    "description": "M_Output = T*M_Input*T^(-1)",
+                    "type": "number"
+                  },
+                  "minItems": 9,
+                  "maxItems": 9
+                },
+                "belongsto": {
+                  "description": "从属关系，如果目标没有该id，则将变换矩阵与指向位置相乘",
+                  "type": "string"
+                },
+                "readable": {
+                  "description": "是否可读，默认为是",
+                  "type": "boolean",
+                  "default": true
+                },
+                "isbone": {
+                  "description": "是否为骨骼，仅用于blender，默认为是",
+                  "type": "boolean",
+                  "default": true
+                }
+              },
+              "if": {
+                "properties": {
+                  "readable": {
+                    "const": false
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "id"
+                ]
+              },
+              "else": {
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

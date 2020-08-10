@@ -1,0 +1,49 @@
+{
+  "title": "RigActionRecorder - 输出文件数据结构",
+  "properties": {
+    "data_version": {
+      "description": "系统版本，固定值",
+      "type": "number",
+      "const": 0.1
+    },
+    "frame_range": {
+      "description": "时间范围",
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "minLength": 2,
+      "maxLength": 2
+    },
+    "data": {
+      "description": "数据信息",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "标识符",
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "patternProperties": {
+          "^[0-9]+$": {
+            "description": "某一帧信息，按列分块从左到右排列的3x4矩阵",
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 12,
+            "maxItems": 12
+          }
+        }
+      }
+    },
+    "fps": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    }
+  }
+}
