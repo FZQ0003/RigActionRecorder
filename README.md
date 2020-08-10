@@ -31,9 +31,9 @@ Hint: The document is written in Chinese and you may need a translator.
 
 * 打开C4D或Blender，导入人模并k帧。
 
-    > 目前仅支持[Varcade](https://www.bilibili.com/video/av83892718 "Voxel-Arcade团队在动画里使用的人模，由游客Yuke制作")人模，如有其他需求可修改prop.json。
-    > Cinema 4D：点上面的链接
-    > Blender人模下载：[下载地址](https://fqilin.lanzous.com/b015decja "Varcade_BL")
+    > 目前仅支持[Varcade](https://www.bilibili.com/video/av83892718 "Voxel-Arcade团队在动画里使用的人模，由游客Yuke制作")人模，如有其他需求可修改prop.json。\
+      Cinema 4D：点上面的链接\
+      Blender人模下载：[下载地址](https://fqilin.lanzous.com/b015decja "Varcade_BL")
 
 * 准备完成后，选中人模整体。
 
@@ -47,9 +47,9 @@ Hint: The document is written in Chinese and you may need a translator.
 
 * 最后会在脚本目录下生成“output.json”文件，或者是自动给人模k帧。
 
-    > 目前能复制的控制器非常少，因为我需要记录所有的控制器名称以及局部坐标系矩阵，然后写到prop.json……
-    > 如果你希望记录自己的人模，可以照着prop.json和schema_prop.json自己写一个。
-    > 可以百度“json schema”了解schema的用法。
+    > 目前能复制的控制器非常少，因为我需要记录所有的控制器名称以及局部坐标系矩阵，然后写到prop.json……\
+      如果你希望记录自己的人模，可以照着prop.json和schema_prop.json自己写一个。\
+      可以百度“json schema”了解schema的用法。
 
 ---
 ### Others - 其他
