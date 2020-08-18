@@ -5,6 +5,22 @@
       "type": "number",
       "default": 1.0,
       "exclusiveMinimum": 0
+    },
+    "matrix": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "anyOf": [
+        {
+          "minItems": 9,
+          "maxItems": 9
+        },
+        {
+          "minItems": 12,
+          "maxItems": 12
+        }
+      ]
     }
   },
   "type": "object",
@@ -100,15 +116,12 @@
                 "name": {
                   "description": "在对应软件中的名称"
                 },
-                "transform": {
-                  "description": "在此输入3*3（按列分块）矩阵的所有元素作为变换，注意顺序",
-                  "type": "array",
+                "local_coord": {
+                  "description": "局部坐标系，输入3*3/3*4（按列分块）矩阵的所有元素，注意顺序",
+                  "$ref": "#/definitions/matrix",
                   "items": {
-                    "description": "M_Output = T*M_Input*T^(-1)",
-                    "type": "number"
-                  },
-                  "minItems": 9,
-                  "maxItems": 9
+                    "description": "M_Output = T*M_Input*T^(-1)"
+                  }
                 },
                 "belongsto": {
                   "description": "从属关系，如果目标没有该id，则将变换矩阵与指向位置相乘",

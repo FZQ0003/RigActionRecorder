@@ -83,22 +83,22 @@
         {
           "id": "head",
           "name": "Head",
-          "transform": [1, 0, 0, 0, 0, 1, 0, -1, 0]
+          "local_coord": [1, 0, 0, 0, 0, 1, 0, -1, 0]
         },
         {
           "id": "body",
           "name": "Body",
-          "transform": [1, 0, 0, 0, 0, 1, 0, -1, 0]
+          "local_coord": [1, 0, 0, 0, 0, 1, 0, -1, 0]
         },
         {
           "id": "waist",
           "name": "Back",
-          "transform": [1, 0, 0, 0, 0, 1, 0, -1, 0]
+          "local_coord": [1, 0, 0, 0, 0, 1, 0, -1, 0]
         },
         {
           "id": "hip",
           "name": "Hip",
-          "transform": [1, 0, 0, 0, 0, 1, 0, -1, 0]
+          "local_coord": [1, 0, 0, 0, 0, 1, 0, -1, 0]
         },
         {
           "id": "arm_l",
@@ -137,22 +137,22 @@
         {
           "id": "arm_ik_l",
           "name": "Arm_IK_L",
-          "transform": [1, 0, 0, 0, 0, -1, 0, 1, 0]
+          "local_coord": [1, 0, 0, 0, 0, -1, 0, 1, 0]
         },
         {
           "id": "arm_ik_r",
           "name": "Arm_IK_R",
-          "transform": [1, 0, 0, 0, 0, -1, 0, 1, 0]
+          "local_coord": [1, 0, 0, 0, 0, -1, 0, 1, 0]
         },
         {
           "id": "leg_ik_l",
           "name": "Leg_IK_L",
-          "transform": [1, 0, 0, 0, 0, -1, 0, 1, 0]
+          "local_coord": [1, 0, 0, 0, 0, -1, 0, 1, 0]
         },
         {
           "id": "leg_ik_r",
           "name": "Leg_IK_R",
-          "transform": [1, 0, 0, 0, 0, -1, 0, 1, 0]
+          "local_coord": [1, 0, 0, 0, 0, -1, 0, 1, 0]
         }
       ]
     }

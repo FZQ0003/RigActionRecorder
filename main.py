@@ -190,18 +190,21 @@ def get_action():
 
     for id_obj in data.list_objects():
         data_obj = data.get_object(id_obj)
-        # Todo: other args -> matrix
         if data_obj.get('readable', True):
-            transform = mod.Matrix(data_obj.get('transform', None))
+            local_coord = mod.Matrix(data_obj.get('local_coord', None))
             obj = mod.BaseObject.search_obj(data_obj['name'], mod.context_obj)
+
+            # Todo: other args -> matrix
+            matrix_left = local_coord
+            matrix_right = local_coord.invert()
 
             output_data = {'id': id_obj}
             for i in mod.get_frames(range):
                 mod.set_frame(i)
                 output_data['%04d' % i] = (
-                    transform
-                    * obj.get_matrix(i)
-                    * transform.invert()
+                        matrix_left
+                        * obj.get_matrix(i)
+                        * matrix_right
                 ).convert_to_list()
             output.append_data(output_data)
 
@@ -213,18 +216,21 @@ def set_action():
 
     for id_obj in data.list_objects():
         data_obj = data.get_object(id_obj)
-        # Todo: other args -> matrix
         if data_obj.get('readable', True):
-            transform = mod.Matrix(data_obj.get('transform', None))
+            local_coord = mod.Matrix(data_obj.get('local_coord', None))
             obj = mod.BaseObject.search_obj(data_obj['name'], mod.context_obj)
+
+            # Todo: other args -> matrix
+            matrix_left = local_coord.invert()
+            matrix_right = local_coord
 
             for i in mod.get_frames(range):
                 # mod.set_frame(i)
                 # Todo: Time Complexity
                 obj.set_matrix(
-                    transform.invert()
+                    matrix_left
                     * output.get_transform(id_obj, i)
-                    * transform, i
+                    * matrix_right, i
                 )
 
 
