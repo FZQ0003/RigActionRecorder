@@ -26,6 +26,10 @@
             "description": "标识符",
             "type": "string",
             "minLength": 1
+          },
+          "belongsto": {
+            "description": "从属关系，如果目标没有该id，则将变换矩阵右乘到指向位置",
+            "type": "string"
           }
         },
         "patternProperties": {

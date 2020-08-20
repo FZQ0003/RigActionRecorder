@@ -29,6 +29,37 @@ except ImportError:
 reload(mod)
 
 
+def numlist_convert(numlist, indexes):
+    """
+
+    :type numlist: list
+    :param numlist:
+    :type indexes: Union[list, int, None]
+    :param indexes:
+    :return:
+    :rtype: Union[list, float]
+    """
+    if numlist is None or indexes is None:
+        return numlist
+    elif type(indexes) is int:
+        indexes = [indexes]
+    if len(numlist) == len(indexes):
+        result = [1.0, 0.0, 0.0,
+                  0.0, 1.0, 0.0,
+                  0.0, 0.0, 0.1,
+                  0.0, 0.0, 0.0]
+        for i in indexes:
+            result[i] = numlist[indexes.index(i)]
+    else:
+        result = []
+        for i in indexes:
+            result.append(numlist[i])
+    if len(result) == 1:
+        return result[0]
+    else:
+        return result
+
+
 class DataJson(object):
 
     def __init__(self, path=None):
@@ -165,12 +196,12 @@ class Output(DataJson):
         :type id_obj: str
         :param id_obj:
         :return:
-        :rtype: mod.Matrix
+        :rtype: Union[list, int]
         """
         for obj in self.get_data():
             if obj['id'] == id_obj:
-                return mod.Matrix(obj.get('%04d' % frame, None))
-        return mod.Matrix()
+                return obj.get('%04d' % frame, None)
+        return None
 
 
 path_prop = SCRIPT_DIR + '\\prop.json'
@@ -195,17 +226,19 @@ def get_action():
             obj = mod.BaseObject.search_obj(data_obj['name'], mod.context_obj)
 
             # Todo: other args -> matrix
+            # M_Output = LC * M_Input * LC^(-1)
             matrix_left = local_coord
             matrix_right = local_coord.invert()
 
             output_data = {'id': id_obj}
             for i in mod.get_frames(range):
                 mod.set_frame(i)
-                output_data['%04d' % i] = (
-                        matrix_left
-                        * obj.get_matrix(i)
-                        * matrix_right
-                ).convert_to_list()
+                output_data['%04d' % i] = numlist_convert(
+                    (matrix_left
+                     * obj.get_matrix(i)
+                     * matrix_right).convert_to_list(),
+                    data_obj.get('indexes', None)
+                )
             output.append_data(output_data)
 
     output.save_text(path_output)
@@ -229,8 +262,10 @@ def set_action():
                 # Todo: Time Complexity
                 obj.set_matrix(
                     matrix_left
-                    * output.get_transform(id_obj, i)
-                    * matrix_right, i
+                    * mod.Matrix(numlist_convert(
+                        output.get_transform(id_obj, i),
+                        data_obj.get('indexes', None)
+                    )) * matrix_right, i
                 )
 
 
