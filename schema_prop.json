@@ -125,11 +125,11 @@
                   "type": "string"
                 },
                 "mat_left": {
-                  "description": "设置输出时左乘可逆矩阵",
+                  "description": "设置输出时左乘可逆矩阵（全局）",
                   "$ref": "#/definitions/matrix"
                 },
                 "mat_right": {
-                  "description": "设置输出时右乘可逆矩阵",
+                  "description": "设置输出时右乘可逆矩阵（全局）",
                   "$ref": "#/definitions/matrix"
                 },
                 "indexes": {

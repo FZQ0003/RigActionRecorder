@@ -226,9 +226,11 @@ def get_action():
             obj = mod.BaseObject.search_obj(data_obj['name'], mod.context_obj)
 
             # Todo: other args -> matrix
-            # M_Output = LC * M_Input * LC^(-1)
-            matrix_left = local_coord
-            matrix_right = local_coord.invert()
+            # M_Output = ML * LC * M_Input * LC^(-1) * MR
+            matrix_left = (mod.Matrix(data_obj.get('mat_left', None))
+                           * local_coord)
+            matrix_right = (local_coord.invert()
+                            * mod.Matrix(data_obj.get('mat_right', None)))
 
             output_data = {'id': id_obj}
             for i in mod.get_frames(range):
@@ -254,8 +256,11 @@ def set_action():
             obj = mod.BaseObject.search_obj(data_obj['name'], mod.context_obj)
 
             # Todo: other args -> matrix
-            matrix_left = local_coord.invert()
-            matrix_right = local_coord
+            # M_Input = (ML * LC)^(-1) * M_Output * MR^(-1) * LC
+            matrix_left = (mod.Matrix(data_obj.get('mat_left', None))
+                           * local_coord).invert()
+            matrix_right = (mod.Matrix(data_obj.get('mat_right', None)).invert()
+                            * local_coord)
 
             for i in mod.get_frames(range):
                 # mod.set_frame(i)
