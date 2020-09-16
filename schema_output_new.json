@@ -1,0 +1,93 @@
+{
+  "title": "RigActionRecorder - 输出文件数据结构 (NEW)",
+  "properties": {
+    "data_version": {
+      "description": "系统版本，固定值",
+      "type": "number",
+      "const": 0.2
+    },
+    "project": {
+      "type": "object",
+      "description": "工程全局设置",
+      "properties": {
+        "frame_range": {
+          "description": "时间范围",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "fps": {
+          "type": "number",
+          "description": "FPS",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "rigs": {
+      "description": "人模信息",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "名称",
+            "type": "string",
+            "minLength": 1
+          },
+          "use_id": {
+            "description": "所用人模ID",
+            "type": "string"
+          },
+          "settings": {
+            "description": "人模设置，不参与关键帧",
+            "type": "object",
+            "additionalProperties": {
+              "type": [
+                "array",
+                "boolean",
+                "number",
+                "string"
+              ],
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "keyframes": {
+            "description": "关键帧信息",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "description": "标识符",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "belongsto": {
+                  "description": "从属关系，如果目标没有该id，则将变换矩阵右乘到指向位置",
+                  "type": "string"
+                }
+              },
+              "patternProperties": {
+                "^[0-9]+$": {
+                  "description": "某一帧信息，按列分块从左到右排列的3x4矩阵",
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 12,
+                  "maxItems": 12
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
