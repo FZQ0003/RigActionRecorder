@@ -226,6 +226,7 @@ def get_action():
             obj = mod.BaseObject.search_obj(data_obj['name'], mod.context_obj)
 
             # Todo: other args -> matrix
+            # Todo: get attribute
             # M_Output = ML * LC * M_Input * LC^(-1) * MR
             matrix_left = (mod.Matrix(data_obj.get('mat_left', None))
                            * local_coord)
@@ -256,6 +257,7 @@ def set_action():
             obj = mod.BaseObject.search_obj(data_obj['name'], mod.context_obj)
 
             # Todo: other args -> matrix
+            # Todo: set attribute
             # M_Input = (ML * LC)^(-1) * M_Output * MR^(-1) * LC
             matrix_left = (mod.Matrix(data_obj.get('mat_left', None))
                            * local_coord).invert()

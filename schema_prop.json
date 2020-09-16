@@ -153,6 +153,29 @@
                   "description": "是否为骨骼，仅用于blender，默认为是",
                   "type": "boolean",
                   "default": true
+                },
+                "attribute": {
+                  "description": "若有内容，则读取自定义属性/用户数据而非变换",
+                  "type": "object",
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "description": "属性ID，在C4D中该值为整数，在blender中为名称",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "integer"
+                        }
+                      ]
+                    },
+                    "value_map": {
+                      "description": "映射，仅用于多选一数据"
+                    }
+                  }
                 }
               },
               "if": {

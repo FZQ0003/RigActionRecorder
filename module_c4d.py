@@ -143,6 +143,28 @@ class BaseObject(object):
                 track.FillKey(context_doc, self.__object, key)
                 key.SetValue(curve, transform[i_type][i_dir])
 
+    # Todo: get/set timeline
+    def get_attr(self, id_attr):
+        """
+
+        :type id_attr: int
+        :param id_attr:
+        :return:
+        :rtype: Any
+        """
+        return self.__object[c4d.ID_USERDATA, id_attr]
+
+    def set_attr(self, id_attr, value):
+        """
+
+        :type id_attr: int
+        :param id_attr:
+        :type value: Any
+        :param value:
+        :return:
+        """
+        self.__object[c4d.ID_USERDATA, id_attr] = value
+
     @classmethod
     def search_obj(cls, name, obj=context_obj):
         """

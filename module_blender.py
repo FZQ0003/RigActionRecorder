@@ -109,6 +109,28 @@ class BaseObject(object):
         for str_path in ['location', 'rotation_euler', 'scale']:
             self.__object.keyframe_insert(data_path=str_path, frame=frame)
 
+    # Todo: get/set timeline
+    def get_attr(self, id_attr):
+        """
+
+        :type id_attr: str
+        :param id_attr:
+        :return:
+        :rtype: Any
+        """
+        return self.__object[id_attr]
+
+    def set_attr(self, id_attr, value):
+        """
+
+        :type id_attr: str
+        :param id_attr:
+        :type value: Any
+        :param value:
+        :return:
+        """
+        self.__object[id_attr] = value
+
     @classmethod
     def search_obj(cls, name, obj=context_obj):
         """
