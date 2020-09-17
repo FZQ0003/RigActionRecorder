@@ -159,25 +159,26 @@ class RigProp(DataJson):
                 return obj
         return {}
 
+    def __iter__(self):
+        return self._rig
+
 
 class Output(DataJson):
 
     def __init__(self, path=None):
         super(Output, self).__init__(path)
         if path is None:
-            self._data['data_version'] = 0.1
-            self._data['frame_range'] = mod.get_frames(list)
-            self._data['data'] = []
-            self._data['fps'] = mod.get_fps()
+            self._data['data_version'] = 0.2
+            self._data['rigs'] = []
+            self.write_settings()
         else:
-            mod.init_settings(
-                self._data['frame_range'][0],
-                self._data['frame_range'][1],
-                self._data['fps']
-            )
+            self.read_settings()
 
-    def get_data(self):
-        return self._data.get('data', [])
+    def get_rig_data(self, name=''):
+        for rig in self._data.get('rigs', []):
+            if name == rig.get('name', ''):
+                return rig
+        return {}
 
     def append_data(self, input_data):
         """
@@ -186,7 +187,7 @@ class Output(DataJson):
         :param input_data:
         :return:
         """
-        self._data['data'].append(input_data.copy())
+        self._data['rigs'].append(input_data.copy())
 
     def get_transform(self, id_obj, frame):
         """
@@ -202,6 +203,24 @@ class Output(DataJson):
             if obj['id'] == id_obj:
                 return obj.get('%04d' % frame, None)
         return None
+
+    def read_settings(self):
+        project = self._data.get('project', None)
+        if project is not None:
+            mod.init_settings(
+                project['frame_range'][0],
+                project['frame_range'][1],
+                project['fps']
+            )
+
+    def write_settings(self):
+        self._data['project'] = {
+            'frame_range': mod.get_frames(list),
+            'fps': mod.get_fps()
+        }
+
+    def __iter__(self):
+        return self._data.get('rigs', [])
 
 
 path_prop = SCRIPT_DIR + '\\prop.json'
@@ -219,8 +238,10 @@ else:
 def get_action():
     output = Output()
 
-    for id_obj in data.list_objects():
-        data_obj = data.get_object(id_obj)
+    # for id_obj in data.list_objects():
+    for data_obj in data:
+        # data_obj = data.get_object(id_obj)
+        id_obj = data_obj['id']
         if data_obj.get('readable', True):
             local_coord = mod.Matrix(data_obj.get('local_coord', None))
             obj = mod.BaseObject.search_obj(data_obj['name'], mod.context_obj)
@@ -250,8 +271,10 @@ def get_action():
 def set_action():
     output = Output(path_output)
 
-    for id_obj in data.list_objects():
-        data_obj = data.get_object(id_obj)
+    # for id_obj in data.list_objects():
+    for data_obj in data:
+        # data_obj = data.get_object(id_obj)
+        id_obj = data_obj['id']
         if data_obj.get('readable', True):
             local_coord = mod.Matrix(data_obj.get('local_coord', None))
             obj = mod.BaseObject.search_obj(data_obj['name'], mod.context_obj)
